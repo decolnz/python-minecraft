@@ -17,6 +17,7 @@ _config.read([os.path.join(dirname, CONFIG_FILENAME)
 # These are the values we expect to find
 email       = _config.get('Lab Config Sheet', 'email')
 password    = _config.get('Lab Config Sheet', 'password')
+jsonkey     = _config.get('Lab Config Sheet', 'jsonkey')
 spreadsheet = _config.get('Lab Config Sheet', 'spreadsheet')
 worksheet   = _config.get('Lab Config Sheet', 'worksheet')
 

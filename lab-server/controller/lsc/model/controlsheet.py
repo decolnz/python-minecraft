@@ -6,8 +6,9 @@ import logging
 from collections import namedtuple
 
 import gspread
-from oauth2client.client import SignedJwtAssertionCredentials
-
+#from oauth2client.client import SignedJwtAssertionCredentials
+#oauth2client > 2.0.0 is needed for Google Spreadsheets 
+from oauth2client.service_account import ServiceAccountCredentials
 
 # Give easier names to the column headings in the Sheet
 INST_NMBR="Inst #"
@@ -63,10 +64,11 @@ class Data(object):
 
     log = logging.getLogger(__name__)
 
-    def __init__(self, email, password, sheetname, tabname):
+    def __init__(self, email, password, jsonkey, sheetname, tabname):
         # Save the parameters
         self.email = email
         self.password = password
+        self.jsonkey = jsonkey
         self.sheetname = sheetname
         self.tabname = tabname
 
@@ -79,8 +81,10 @@ class Data(object):
         ''' Connect to Google '''
 
         # Login with a Google account
-        scope = ['https://spreadsheets.google.com/feeds']
-        credentials = SignedJwtAssertionCredentials(self.email, self.password, scope)
+        #scope = ['https://spreadsheets.google.com/feeds']
+        scope = ["https://spreadsheets.google.com/feeds"," https://docs.google.com/feeds" ]
+        credentials = ServiceAccountCredentials.from_json_keyfile_name(self.jsonkey, scope)
+        #credentials = SignedJwtAssertionCredentials(self.email, self.password, scope)
         gc = gspread.authorize(credentials)
 
         # Open the spreadsheet and worksheet

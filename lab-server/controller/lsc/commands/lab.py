@@ -25,6 +25,7 @@ class Show(Lister):
         # Obtain the data from the Google Sheet
         cs = controlsheet.Data(email=config.email,
                                password=config.password,
+                               jsonkey=config.jsonkey,
                                sheetname=config.spreadsheet,
                                tabname=config.worksheet)
 
@@ -49,6 +50,7 @@ class ProcessCommands(Lister):
         # Obtain the data from the Google Sheet
         cs = controlsheet.Data(email=config.email,
                                password=config.password,
+                               jsonkey=config.jsonkey,
                                sheetname=config.spreadsheet,
                                tabname=config.worksheet)
 
